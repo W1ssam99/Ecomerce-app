@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "218683679365",
+    "project_id": "teststore-8487d",
+    "storage_bucket": "teststore-8487d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218683679365:android:4bbdc23302db95e8a7bfec",
+        "android_client_info": {
+          "package_name": "com.example.clothes_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3TX3AM7NNFY8WWxMyLEmOSZunmu4nxvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
