@@ -5,8 +5,7 @@ import 'package:clothes_store/controlers/cubit_for_navbar/home_screen_cubit/home
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:velocity_x/velocity_x.dart';
-import '../../../models/productmodel.dart';
+
 
 class RowProducts extends StatelessWidget {
   const RowProducts({Key? key}) : super(key: key);

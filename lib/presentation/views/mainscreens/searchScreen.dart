@@ -66,7 +66,7 @@ class _SearchScreenState extends State<SearchScreen> {
               itemBuilder: (context, index) {
                 final product = searchResults[index];
                 return ListTile(
-                  title: Text(product!.name ?? 'default value'),
+                  title: Text(product.name ?? 'default value'),
                   subtitle: Text(product.price ?? 'default value'),
                   // Add more details here...
                 );

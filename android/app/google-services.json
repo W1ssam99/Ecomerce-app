@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "218683679365",
-    "project_id": "teststore-8487d",
-    "storage_bucket": "teststore-8487d.appspot.com"
+    "project_number": "523049550344",
+    "firebase_url": "https://ststore-5db6e-default-rtdb.firebaseio.com",
+    "project_id": "ststore-5db6e",
+    "storage_bucket": "ststore-5db6e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:218683679365:android:4bbdc23302db95e8a7bfec",
+        "mobilesdk_app_id": "1:523049550344:android:5a761a43214d507a0507bd",
         "android_client_info": {
           "package_name": "com.example.clothes_store"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB3TX3AM7NNFY8WWxMyLEmOSZunmu4nxvI"
+          "current_key": "AIzaSyCMdC_CekN_JGjG_s9-6iyS6Mi91lza54c"
         }
       ],
       "services": {

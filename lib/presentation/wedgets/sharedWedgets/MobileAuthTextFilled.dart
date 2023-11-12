@@ -9,7 +9,7 @@ class MobileNumberAuthenticationWidget extends StatefulWidget {
 
 class _MobileNumberAuthenticationWidgetState
     extends State<MobileNumberAuthenticationWidget> {
-  PhoneNumber number = PhoneNumber(isoCode: 'US'); // Initial country
+  PhoneNumber number = PhoneNumber(isoCode: 'LY'); // Initial country
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,8 @@ class _MobileNumberAuthenticationWidgetState
             selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
           ),
           initialValue: number, // Initial country
+          textFieldController: TextEditingController(),
+
         ),
       ],
     );

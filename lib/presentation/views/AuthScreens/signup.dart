@@ -2,14 +2,16 @@ import 'package:clothes_store/config/MediaQuery.dart';
 import 'package:clothes_store/config/componets/colors.dart';
 import 'package:clothes_store/config/componets/fonts.dart';
 import 'package:clothes_store/config/componets/icons.dart';
+import 'package:clothes_store/presentation/views/AuthScreens/login.dart';
 import 'package:clothes_store/presentation/views/AuthScreens/mobileAuth.dart';
 import 'package:clothes_store/presentation/wedgets/sharedWedgets/coustomButtom.dart';
 import 'package:clothes_store/presentation/wedgets/sharedWedgets/coustomTextFiled.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import '../../../models/fire_base_auth.dart';
+import '../../../controlers/auth/auth_cubit.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -22,8 +24,8 @@ class _SignUpState extends State<SignUp> {
   bool _isChecked = false;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
 
-  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +59,7 @@ class _SignUpState extends State<SignUp> {
             ),
             48.heightBox,
             CoustumTextFilled(
-              controller: _emailController,
+                controller: _emailController,
                 Label: 'Username or Email',
                 MyIcon: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -67,6 +69,7 @@ class _SignUpState extends State<SignUp> {
                 )),
             30.heightBox,
             CoustumTextFilled(
+              controller: _usernameController,
               textInputType: TextInputType.visiblePassword,
               Label: 'Username',
               MyIcon: Padding(
@@ -129,30 +132,45 @@ class _SignUpState extends State<SignUp> {
               ],
             ),
             25.heightBox,
-            CostumButtom(
-              text: "Sign In",
-              onPressed: () {
-                _auth.registerWithEmailAndPassword(
-                    _emailController.text, _passwordController.text)
-                    .then((result) {
-                  if (result == null) {
-                    // Sign-in failed, show an error message
-                    // (you can display the error message on the same screen)
-                  } else {
-                    // Sign-in successful, navigate to the new screen
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => MobileAuth(),
-                    ));
-                  }
-                });
-              },
+            BlocProvider(
+              create: (context) => AuthenticationCubit(),
+              child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (context, state) {
+                  return CostumButtom(
+                    width: 345,
+                    height: 44,
+                    color: primaryColor,
+                    textColor: WhiteColor,
+                    radius: 10,
+                    fontSize: 16,
+                    text: "Sign In",
+                    onPressed: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setBool("isLogin", true);
+                      if (_emailController.text.isNotEmpty &&
+                          _passwordController.text.isNotEmpty) {
+                        context.read<AuthenticationCubit>().signUp(
+                          username: _usernameController.text,
+                            context: context,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                        );
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MobileAuth()),
+                        );
 
-              width: 345,
-              height: 44,
-              color: primaryColor,
-              textColor: WhiteColor,
-              radius: 10,
-              fontSize: 16,
+                      } else {
+                        context.read<AuthenticationCubit>().showSnackBar(
+                            context: context,
+                            message: "Please enter your email and password");
+                      }
+                    },
+                  );
+                },
+              ),
             ),
             1.heightBox,
             Row(
@@ -168,20 +186,11 @@ class _SignUpState extends State<SignUp> {
                 8.widthBox,
                 ElevatedButton(
                   onPressed: () {
-                    _auth.registerWithEmailAndPassword(
-                        _emailController.text, _passwordController.text)
-                        .then((result) {
-                      if (result == null) {
-
-                      } else {
-                        // Sign-in successful, navigate to the new screen
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => MobileAuth(),
-                        ));
-                      }
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LogIn()),
+                    );
                   },
-
                   style: ElevatedButton.styleFrom(
                     primary: Colors.transparent,
                     shadowColor: Colors.transparent,
@@ -200,7 +209,11 @@ class _SignUpState extends State<SignUp> {
             11.heightBox,
             CostumButtom(
               text: "Sign In with Facebook",
-              onPressed: () {},
+              onPressed: () {
+                //add sign in aniomsly
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MobileAuth()));
+              },
               width: 35,
               height: 44,
               color: blueColor,

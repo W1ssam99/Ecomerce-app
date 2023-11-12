@@ -1,4 +1,3 @@
-import '../config/componets/images.dart';
 
 class Products {
   String? name;

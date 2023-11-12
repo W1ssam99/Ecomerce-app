@@ -1,15 +1,11 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:clothes_store/config/componets/fonts.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/componets/Lists.dart';
 import '../../../controlers/cubit_for_navbar/home_screen_cubit/homescreen_cubit.dart';
-import '../../../models/productmodel.dart';
 
 
-@JsonSerializable()
 class Favorite extends StatelessWidget {
 
 

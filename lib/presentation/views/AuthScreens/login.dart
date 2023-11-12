@@ -2,14 +2,15 @@ import 'package:clothes_store/config/MediaQuery.dart';
 import 'package:clothes_store/config/componets/colors.dart';
 import 'package:clothes_store/config/componets/fonts.dart';
 import 'package:clothes_store/config/componets/icons.dart';
+import 'package:clothes_store/controlers/auth/auth_cubit.dart';
 import 'package:clothes_store/presentation/views/AuthScreens/signup.dart';
 import 'package:clothes_store/presentation/wedgets/sharedWedgets/coustomButtom.dart';
 import 'package:clothes_store/presentation/wedgets/sharedWedgets/coustomTextFiled.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../../../models/fire_base_auth.dart';
 import '../mainscreens/NavBar.dart';
 
 class LogIn extends StatelessWidget {
@@ -19,9 +20,6 @@ class LogIn extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-
 
     return Scaffold(
         body: SingleChildScrollView(
@@ -54,6 +52,7 @@ class LogIn extends StatelessWidget {
             ),
             48.heightBox,
             CoustumTextFilled(
+                controller: _emailController,
                 Label: 'Username or Email',
                 MyIcon: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -63,6 +62,7 @@ class LogIn extends StatelessWidget {
                 )),
             30.heightBox,
             CoustumTextFilled(
+              controller: _passwordController,
               textInputType: TextInputType.visiblePassword,
               Label: 'Password',
               MyIcon: Padding(
@@ -74,29 +74,43 @@ class LogIn extends StatelessWidget {
               obscureText: true,
             ),
             180.heightBox,
-            CostumButtom(
-              text: "Sign In",
-              onPressed: () async {
-                try {
-                  UserCredential userCredential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text);
-                  // Handle successful sign in
-                  print('User signed in: ${userCredential.user}');
-                } catch (e) {
-                  // Handle sign in failure
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(e.toString())),
-                  );
-                }
-              },
-              width: 345,
-              height: 44,
-              color: primaryColor,
-              textColor: WhiteColor,
-              radius: 10,
-              fontSize: 16,
+            BlocProvider(
+              create: (context) => AuthenticationCubit(),
+              child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (context, state) {
+                  return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: primaryColor, // background color
+                        onPrimary: WhiteColor, // text color
+                        minimumSize: Size(345, 44), // size
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(10), // border radius
+                        ),
+                      ),
+                      child: Text(
+                        "Sign In",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setBool("isLogin", true);
+                        if (_emailController.text.isNotEmpty &&
+                            _passwordController.text.isNotEmpty) {
+                          context.read<AuthenticationCubit>().signIn(
+                                context: context,
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              );
+                        } else {
+                          context.read<AuthenticationCubit>().showSnackBar(
+                              context: context,
+                              message: "Please enter your email and password");
+                        }
+                      });
+                },
+              ),
             ),
             6.heightBox,
             Row(
@@ -120,7 +134,6 @@ class LogIn extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
                     shadowColor: Colors.transparent,
                     foregroundColor: Color(0xFF171717),
                   ),
@@ -139,9 +152,7 @@ class LogIn extends StatelessWidget {
             20.heightBox,
             CostumButtom(
               text: "Sign In with Facebook",
-              onPressed: () async {
-
-              },
+              onPressed: () async {},
               width: 35,
               height: 44,
               color: blueColor,

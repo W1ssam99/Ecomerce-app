@@ -2,7 +2,6 @@ import 'package:clothes_store/config/componets/icons.dart';
 import 'package:clothes_store/presentation/wedgets/mainScreenWedgit/homeScreenWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../config/componets/fonts.dart';
@@ -29,8 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
+
         automaticallyImplyLeading: false,
-        leading: IconButton(onPressed: () {}, icon: SvgPicture.asset(MenuIco)),
+
+        leading: IconButton(onPressed: () {
+
+        }, icon: SvgPicture.asset(MenuIco)),
         actions: [
           IconButton(
               onPressed: () {
