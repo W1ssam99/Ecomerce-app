@@ -1,6 +1,51 @@
+
+
 part of 'profilecubit_cubit.dart';
 
 @immutable
-abstract class ProfilecubitState {}
+abstract class UserState {}
 
-class ProfilecubitInitial extends ProfilecubitState {}
+class UserInitial extends UserState {}
+
+class UserDataLoaded extends UserState {
+  final String? username;
+
+  UserDataLoaded({required this.username});
+}
+
+class UserNotAuthenticated extends UserState {}
+
+class UpdateThemeSwitchState extends UserState {
+  final bool? value;
+
+  UpdateThemeSwitchState({this.value});
+}
+
+
+
+class ProfileState extends Equatable {
+  const ProfileState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ProfileLoading extends ProfileState {}
+
+class ProfileLoaded extends ProfileState {
+  final String username;
+
+  ProfileLoaded(this.username);
+
+  @override
+  List<Object?> get props => [username];
+}
+
+class ProfileError extends ProfileState {
+  final String errorMessage;
+
+  ProfileError(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
+}

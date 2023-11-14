@@ -1,6 +1,10 @@
 part of 'languge_cubit.dart';
 
 @immutable
-abstract class LangugeState {}
+abstract class LangugeStatee {}
 
-class LangugeInitial extends LangugeState {}
+class LanguageState  extends LangugeStatee{
+  final Locale locale;
+
+  LanguageState(this.locale);
+}

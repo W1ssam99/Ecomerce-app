@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
+import '../../../generated/l10n.dart';
 import '../mainscreens/NavBar.dart';
 
 class LogIn extends StatelessWidget {
@@ -21,6 +22,7 @@ class LogIn extends StatelessWidget {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
 
+    var _Localaization = S.of(context);
     return Scaffold(
         body: SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -30,7 +32,7 @@ class LogIn extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Let’s Sign You In',
+              _Localaization.Login,
               style: TextStyle(
                 color: Color(0xFF171717),
                 fontSize: 24,
@@ -40,7 +42,7 @@ class LogIn extends StatelessWidget {
             ),
             18.heightBox,
             Text(
-              'Welcome back, you’ve been missed!',
+              _Localaization.WelcomeBack,
               style: TextStyle(
                 color: Color(0xFF171717),
                 fontSize: 14,
@@ -53,7 +55,7 @@ class LogIn extends StatelessWidget {
             48.heightBox,
             CoustumTextFilled(
                 controller: _emailController,
-                Label: 'Username or Email',
+                Label: _Localaization.UsernameOrEmail,
                 MyIcon: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SvgPicture.asset(
@@ -64,7 +66,7 @@ class LogIn extends StatelessWidget {
             CoustumTextFilled(
               controller: _passwordController,
               textInputType: TextInputType.visiblePassword,
-              Label: 'Password',
+              Label: _Localaization.Password,
               MyIcon: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SvgPicture.asset(
@@ -89,7 +91,7 @@ class LogIn extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        "Sign In",
+                        _Localaization.sign,
                         style: TextStyle(fontSize: 16),
                       ),
                       onPressed: () async {
@@ -116,7 +118,7 @@ class LogIn extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have an account?",
+                Text(_Localaization.dontHaveAccount,
                     style: TextStyle(
                       color: Color(0xFF171717),
                       fontSize: 14,
@@ -137,7 +139,7 @@ class LogIn extends StatelessWidget {
                     shadowColor: Colors.transparent,
                     foregroundColor: Color(0xFF171717),
                   ),
-                  child: Text("Sign Up",
+                  child: Text(_Localaization.sign,
                       style: TextStyle(
                         color: primaryColor,
                         fontSize: 14,
@@ -151,7 +153,7 @@ class LogIn extends StatelessWidget {
             ),
             20.heightBox,
             CostumButtom(
-              text: "Sign In with Facebook",
+              text: _Localaization.SignUpWithFacebook,
               onPressed: () async {},
               width: 35,
               height: 44,

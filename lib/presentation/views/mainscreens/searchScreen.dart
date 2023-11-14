@@ -1,6 +1,7 @@
 import 'package:clothes_store/config/componets/Lists.dart';
 import 'package:clothes_store/config/componets/fonts.dart';
 import 'package:flutter/material.dart';
+import '../../../generated/l10n.dart';
 import '../../../models/productmodel.dart';
 import '../../wedgets/mainScreenWedgit/searchScreenWedget.dart';
 
@@ -16,6 +17,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     List<Products> searchResults = [];
     String currentQuery = '';
+    var _Localaization= S.of(context);
+
 
     void search(String query) {
       setState(() {
@@ -33,14 +36,13 @@ class _SearchScreenState extends State<SearchScreen> {
         searchResults = [];
       });
     }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Search",
+         _Localaization.Search,
           style: TextStyle(
-              fontFamily: primaryFont.fontFamily, color: Colors.black),
+              color: Colors.black),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -52,7 +54,8 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: TextFilledForSearch(
               onSearchSubmitted: search,
-              onChange: (query) {},
+              onChange: (query) {
+              },
             ),
           ),
           if (currentQuery.isNotEmpty)

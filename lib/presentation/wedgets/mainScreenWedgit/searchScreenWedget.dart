@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
+
 class TextFilledForSearch extends StatelessWidget {
   final Function(String) onChange;
   final Function(String) onSearchSubmitted;
@@ -7,6 +9,8 @@ class TextFilledForSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _Localaization= S.of(context);
+
     return TextFormField(
       onFieldSubmitted: onSearchSubmitted,
       onChanged: onChange,
@@ -16,7 +20,7 @@ class TextFilledForSearch extends StatelessWidget {
 
         fillColor: Color(0xFFF3F6F8),
         filled: true,
-        hintText: "Search on STStore",
+        hintText: _Localaization.SearchOnSTStore,
         hintStyle: TextStyle(
           color: Colors.black,
           fontSize: 14,

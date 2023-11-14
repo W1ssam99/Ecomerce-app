@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../controlers/auth/auth_cubit.dart';
+import '../../../generated/l10n.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -26,8 +27,11 @@ class _SignUpState extends State<SignUp> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _usernameController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
+    var _Localaization= S.of(context);
+
     return Scaffold(
         body: SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -37,7 +41,7 @@ class _SignUpState extends State<SignUp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Getting Started',
+        _Localaization.GettingStarted,
               style: TextStyle(
                 color: Color(0xFF171717),
                 fontSize: 24,
@@ -46,8 +50,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             18.heightBox,
-            Text(
-              'Create an account to continue!',
+            Text(_Localaization.GettingStarted,
               style: TextStyle(
                 color: Color(0xFF171717),
                 fontSize: 14,
@@ -60,7 +63,7 @@ class _SignUpState extends State<SignUp> {
             48.heightBox,
             CoustumTextFilled(
                 controller: _emailController,
-                Label: 'Username or Email',
+                Label: _Localaization.UsernameOrEmail,
                 MyIcon: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SvgPicture.asset(
@@ -71,7 +74,7 @@ class _SignUpState extends State<SignUp> {
             CoustumTextFilled(
               controller: _usernameController,
               textInputType: TextInputType.visiblePassword,
-              Label: 'Username',
+              Label: _Localaization.Username,
               MyIcon: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SvgPicture.asset(
@@ -84,7 +87,7 @@ class _SignUpState extends State<SignUp> {
             CoustumTextFilled(
               controller: _passwordController,
               textInputType: TextInputType.visiblePassword,
-              Label: 'Password',
+              Label: _Localaization.Password,
               MyIcon: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SvgPicture.asset(
@@ -105,31 +108,16 @@ class _SignUpState extends State<SignUp> {
                     });
                   },
                 ),
-                const Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'By creating an account, you agree to our\n',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'DM Sans',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Term & Conditions',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'DM Sans',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    _Localaization.termsconditions,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontFamily: 'DM Sans',
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-              ],
+                 ],
             ),
             25.heightBox,
             BlocProvider(
@@ -143,7 +131,7 @@ class _SignUpState extends State<SignUp> {
                     textColor: WhiteColor,
                     radius: 10,
                     fontSize: 16,
-                    text: "Sign In",
+                    text: _Localaization.Signup,
                     onPressed: () async {
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
@@ -176,7 +164,7 @@ class _SignUpState extends State<SignUp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Already have an account?",
+                Text(_Localaization.AlreadyHaveAnAccount,
                     style: TextStyle(
                       color: Color(0xFF171717),
                       fontSize: 14,
@@ -196,7 +184,7 @@ class _SignUpState extends State<SignUp> {
                     shadowColor: Colors.transparent,
                     foregroundColor: Color(0xFF171717),
                   ),
-                  child: Text("Sign In",
+                  child: Text(_Localaization.sign,
                       style: TextStyle(
                         color: primaryColor,
                         fontSize: 14,
@@ -208,7 +196,7 @@ class _SignUpState extends State<SignUp> {
             ),
             11.heightBox,
             CostumButtom(
-              text: "Sign In with Facebook",
+              text: _Localaization.SignUpWithFacebook,
               onPressed: () {
                 //add sign in aniomsly
                 Navigator.push(context,

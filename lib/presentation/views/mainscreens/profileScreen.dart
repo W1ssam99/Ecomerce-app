@@ -1,60 +1,28 @@
-import 'package:clothes_store/config/componets/colors.dart';
 import 'package:clothes_store/config/componets/fonts.dart';
+import 'package:clothes_store/controlers/firebaseFunction/functions_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-
-import '../../../config/componets/images.dart';
+import '../../../controlers/auth/auth_cubit.dart';
+import '../../../controlers/profilecubit/profilecubit_cubit.dart';
+import '../../../generated/l10n.dart';
+import '../../wedgets/detaileScreenWedget/languseScreen.dart';
 import '../AuthScreens/signup.dart';
+import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  String userName = '';
-  String userEmail = '';
-  bool isSwitched = false;
-  bool isSwitchedNotifi = false;
-
-
-  @override
-  void initState() {
-    super.initState();
-    getUserData();
-  }
-
-  Future<void> getUserData() async {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    try {
-      DocumentSnapshot userData = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user?.uid)
-          .get();
-
-      if (userData.exists) {
-        setState(() {
-          userName = userData['username'];
-          userEmail = userData['email'];
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var _localization = S.of(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: "Profile".text.color(Colors.black).bold.make(),
+        title: _localization.Profile.text.color(Colors.black).make(),
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -77,12 +45,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      userName,
-                      style: TextStyle(
-                          fontFamily: primaryFont.fontFamily,
-                          fontSize: 20,
-                          color: Colors.black),
+                    BlocProvider(
+                      create: (context) => ProfileCubit()..fetchUsername(), // Initialize and fetch username
+                      child: BlocBuilder<ProfileCubit, ProfileState>(
+                        builder: (context, state) {
+                          if (state is ProfileLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (state is ProfileLoaded) {
+                            return Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '${state.username}',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else if (state is ProfileError) {
+                            return Center(
+                              child: Text(
+                                'Error: ${state.errorMessage}',
+                                style:
+                                    TextStyle(fontSize: 20, color: Colors.red),
+                              ),
+                            );
+                          } else {
+                            return Center(
+                              child: Text(
+                                'Unknown state',
+                                style:
+                                    TextStyle(fontSize: 20, color: Colors.red),
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     ),
                     5.heightBox,
                     Text("Tajura,Bair Alousta Milad,libya",
@@ -96,21 +95,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             44.heightBox,
             Container(
-              height: MediaQuery.of(context).size.height*0.6,
+              height: MediaQuery.of(context).size.height * 0.6,
               width: 400,
               child: ListView(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left:44.0,right: 44),
+                    padding: const EdgeInsets.only(left: 44.0, right: 44),
                     child: Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start ,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                               Icon(
-                                Icons.shopping_bag,
-                                color: Colors.black,
-                              ),
+                            Icon(
+                              Icons.shopping_bag,
+                              color: Colors.black,
+                            ),
                             20.widthBox,
                             Text(
                               "Order History",
@@ -123,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         25.heightBox,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start ,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Icon(
                               Icons.notifications,
@@ -139,40 +138,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             Spacer(),
                             Transform.scale(
-                              scale:0.9, // Adjust the scale factor according to your preference
-                              child: Switch(
-                                value: isSwitchedNotifi,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isSwitchedNotifi = value;
-                                  });
-                                },
-                              ),
+                              scale: 0.9,
+                              // Adjust the scale factor according to your preference
                             )
-
                           ],
                         ),
                         25.heightBox,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start ,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Icon(
                               Icons.language,
                               color: Colors.black,
                             ),
                             20.widthBox,
-                            Text(
-                              "Language",
-                              style: TextStyle(
-                                  fontFamily: primaryFont.fontFamily,
-                                  fontSize: 20,
-                                  color: Colors.black),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Languge()),
+                                );
+                              },
+                              child: Text(
+                                "Language",
+                                style: TextStyle(
+                                    fontFamily: primaryFont.fontFamily,
+                                    fontSize: 20,
+                                    color: Colors.black),
+                              ),
                             ),
                           ],
                         ),
                         30.heightBox,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start ,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Icon(
                               Icons.dark_mode,
@@ -188,18 +188,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             Spacer(),
                             Transform.scale(
-                              scale: 0.9, // Adjust the scale factor according to your preference
-                              child: Switch(
-                                value: isSwitched,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isSwitched = value;
-                                  });
-                                },
-                              ),
+                              scale: 0.9,
+                              // Adjust the scale factor according to your preference
                             )
-
                           ],
+                        ),
+                        25.heightBox,
+                        BlocProvider(
+                          create: (context) => UserCubit(),
+                          child: BlocBuilder<UserCubit,UserState>(
+                            builder: (BuildContext context, state) =>
+                                TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+
+                              onPressed: () {
+
+                                context.read<UserCubit>().logout();
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUp()),
+                                );
+                              },
+                              child: Text(
+                                "Log Out",
+                                style: TextStyle(
+                                  fontFamily: primaryFont.fontFamily,
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -212,6 +237,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-
-// ...
 }
