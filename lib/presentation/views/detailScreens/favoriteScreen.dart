@@ -94,7 +94,9 @@ children: [  Container(
                       ),
                       Spacer(),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            BlocProvider.of<HomescreenCubit>(context).removeFromCart(cartProducts[index]);
+                          },
                           icon: Icon(
                             Icons.favorite,
                             color: Colors.red,

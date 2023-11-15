@@ -2,30 +2,23 @@ import 'package:clothes_store/models/productmodel.dart';
 
 import 'images.dart';
 
-
- List<Products> products = [
+List<Products> products = [
+  Products(name: "Ps5", image: ps5Photo, price: '2500', description: "Ps5"),
+  Products(name: "Xbox", image: xBoxsPhoto, price: '2500', description: "Xbox"),
+  Products(name: "Mac", image: macPhoto, price: '2500', description: "Mac"),
   Products(
-      name: "Product1",
-      image: Product1,
-      price: "100",
-      description: "Product1"),
+      name: "Iphone", image: iphonePhoto, price: '2500', description: "Iphone"),
   Products(
-      name: "Product2",
-      image: Product2,
-      price: "200",
-      description: "Product2"),
+      name: "Laptop", image: laptopPhoto, price: '2500', description: "Laptop"),
   Products(
-      name: "Product3",
-      image: Product3,
-      price: "300",
-      description: "Product3"),
-  Products(
-      name: "Product4",
-      image: Product4,
-      price: "400",
-      description: "Product4"),
+      name: "Headphone",
+      image: headphonePhoto,
+      price: '2500',
+      description: "Headphone"),
+  Products(name: "Ps5", image: ps5Photo, price: '2500', description: "Ps5"),
+  Products(name: "Xbox", image: xBoxsPhoto, price: '2500', description: "Xbox"),
 ];
 
-List<Products> favoriteProducts = [
+List<Products> favoriteProducts = [];
 
-];
+List<Products> cartProducts = [];

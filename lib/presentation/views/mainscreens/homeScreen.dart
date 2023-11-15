@@ -3,36 +3,37 @@ import 'package:clothes_store/presentation/wedgets/mainScreenWedgit/homeScreenWi
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import '../../../config/componets/fonts.dart';
+import '../../../generated/l10n.dart';
+import '../detailScreens/addPrducts.dart';
 import '../detailScreens/favoriteScreen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
 
-class _HomeScreenState extends State<HomeScreen> {
+
+
   @override
   Widget build(BuildContext context) {
+    var _Localaization= S.of(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Home",style: TextStyle(
-            fontFamily: primaryFont.fontFamily,
+        title:Text(
+          _Localaization.Home,
+          style: TextStyle(
             fontSize: 20,
-            color: Colors.black),
+
+            color: Colors.black,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-
         automaticallyImplyLeading: false,
 
         leading: IconButton(onPressed: () {
-
         }, icon: SvgPicture.asset(MenuIco)),
         actions: [
           IconButton(
@@ -51,10 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
         Align(
           alignment: Alignment.center,
           child: Text(
-            'Products',
+            _Localaization.Products,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontFamily: primaryFont.fontFamily,
               color: Color(0xFF171717),
               fontSize: 17,
 
@@ -72,12 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
         Align(
           alignment: Alignment.center,
           child: Text(
-            'Recommended for you',
+            _Localaization.RecommendedForYou,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(0xFF171717),
               fontSize: 17,
-              fontFamily: primaryFont.fontFamily,
 
             ),
           ),

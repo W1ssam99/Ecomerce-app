@@ -9,17 +9,20 @@ import 'package:line_icons/line_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../controlers/cubit_for_navbar/navigation_cubit.dart';
+import '../../../generated/l10n.dart';
 
 class Navigation_Bar extends StatelessWidget {
   final List Screens = [
-   const HomeScreen(),
+    HomeScreen(),
     SearchScreen(),
-   const OrderScreen(),
+    OrderScreen(),
    const ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    var _Localaization= S.of(context);
+
     return BlocProvider(
       create: (context) => NavigationCubit(),
       child: BlocBuilder<NavigationCubit, NavigationState>(
@@ -48,22 +51,22 @@ class Navigation_Bar extends StatelessWidget {
                   duration: Duration(milliseconds: 400),
                   tabBackgroundColor: primaryColor,
                   color: Colors.black,
-                  tabs:const [
+                  tabs: [
                     GButton(
                       icon: LineIcons.home,
-                      text: 'Home',
+                      text:_Localaization.Home,
                     ),
                     GButton(
                       icon: LineIcons.search,
-                      text: 'Search',
+                      text:_Localaization.Search,
                     ),
                     GButton(
                       icon: LineIcons.shoppingBag,
-                      text: 'Order',
+                      text: _Localaization.Orders
                     ),
                     GButton(
                       icon: LineIcons.user,
-                      text: 'Profile',
+                      text: _Localaization.Profile
                     ),
                   ],
                   selectedIndex: _currentIndex,
