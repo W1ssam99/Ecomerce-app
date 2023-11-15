@@ -84,7 +84,7 @@ children: [  Container(
                             height: 10,
                           ),
                           Text(
-                            favoriteProducts[index].price ?? "default value",
+                              "${favoriteProducts[index].price}",
                             style: TextStyle(
                                 fontFamily: primaryFont.fontFamily,
                                 fontSize: 20,

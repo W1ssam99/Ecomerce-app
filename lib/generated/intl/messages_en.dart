@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "OrderHistory": MessageLookupByLibrary.simpleMessage("Order History"),
         "Orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
+        "ProductDetail": MessageLookupByLibrary.simpleMessage("Product Detail"),
         "Products": MessageLookupByLibrary.simpleMessage("Products"),
         "Profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "RecommendedForYou":
@@ -55,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
         "Signup": MessageLookupByLibrary.simpleMessage("Sign up"),
         "Total": MessageLookupByLibrary.simpleMessage("Total"),
+        "TotalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
         "Username": MessageLookupByLibrary.simpleMessage("Username"),
         "UsernameOrEmail":
             MessageLookupByLibrary.simpleMessage("Username or Email"),

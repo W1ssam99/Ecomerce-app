@@ -1,16 +1,14 @@
-import 'package:clothes_store/config/componets/fonts.dart';
-import 'package:clothes_store/controlers/firebaseFunction/functions_cubit.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../../../controlers/auth/auth_cubit.dart';
 import '../../../controlers/profilecubit/profilecubit_cubit.dart';
 import '../../../generated/l10n.dart';
 import '../../wedgets/detaileScreenWedget/languseScreen.dart';
 import '../AuthScreens/signup.dart';
 import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -86,7 +84,6 @@ class ProfileScreen extends StatelessWidget {
                     5.heightBox,
                     Text("Tajura,Bair Alousta Milad,libya",
                         style: TextStyle(
-                            fontFamily: primaryFont.fontFamily,
                             fontSize: 15,
                             color: Colors.black.withOpacity(0.8))),
                   ],
@@ -112,9 +109,8 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             20.widthBox,
                             Text(
-                              "Order History",
+                              _localization.OrderHistory,
                               style: TextStyle(
-                                  fontFamily: primaryFont.fontFamily,
                                   fontSize: 20,
                                   color: Colors.black),
                             ),
@@ -125,14 +121,13 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Icon(
-                              Icons.notifications,
+                              EvaIcons.menu2Outline,
                               color: Colors.black,
                             ),
                             20.widthBox,
                             Text(
-                              "Notifications",
+                              _localization.Notifications,
                               style: TextStyle(
-                                  fontFamily: primaryFont.fontFamily,
                                   fontSize: 20,
                                   color: Colors.black),
                             ),
@@ -161,9 +156,8 @@ class ProfileScreen extends StatelessWidget {
                                 );
                               },
                               child: Text(
-                                "Language",
+                                _localization.Language,
                                 style: TextStyle(
-                                    fontFamily: primaryFont.fontFamily,
                                     fontSize: 20,
                                     color: Colors.black),
                               ),
@@ -180,9 +174,8 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             20.widthBox,
                             Text(
-                              "Change Theme",
+                              _localization.ChangeTheme,
                               style: TextStyle(
-                                  fontFamily: primaryFont.fontFamily,
                                   fontSize: 20,
                                   color: Colors.black),
                             ),
@@ -216,9 +209,8 @@ class ProfileScreen extends StatelessWidget {
                                 );
                               },
                               child: Text(
-                                "Log Out",
+                                _localization.LogOut,
                                 style: TextStyle(
-                                  fontFamily: primaryFont.fontFamily,
                                   fontSize: 20,
                                   color: Colors.white,
                                 ),

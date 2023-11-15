@@ -23,6 +23,7 @@ class UserCubit extends Cubit<UserState> {
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileLoading());
 
+
   Future<void> fetchUsername() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -34,7 +35,7 @@ class ProfileCubit extends Cubit<ProfileState> {
             .get();
 
         if (userData.exists) {
-          String username = userData['username'];
+          String username = userData['email'];
           emit(ProfileLoaded(username));
         } else {
           emit(ProfileError('User data not found'));

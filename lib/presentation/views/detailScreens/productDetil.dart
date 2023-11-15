@@ -3,8 +3,9 @@ import 'package:clothes_store/models/productmodel.dart';
 import 'package:clothes_store/presentation/wedgets/sharedWedgets/coustomButtom.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../../../config/componets/Lists.dart';
+import '../../../generated/l10n.dart';
+
 
 class ProductDetail extends StatelessWidget {
   final Products product;
@@ -13,9 +14,11 @@ class ProductDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _localization = S.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Detail'),
+        title: Text(_localization.ProductDetail),
       ),
       body: Column(
         children: [
@@ -23,23 +26,27 @@ class ProductDetail extends StatelessWidget {
               color: Colors.white,
               height: 300,
               width: double.infinity,
-              child: Image.asset(product.image ?? "")),
+              child: Image.asset(product.image!)),
           Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 8),
             child: Align(
               alignment: Alignment.topLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(product.name ?? "").text.size(24).make(),
-                  25.heightBox,
-                  Text(product.description ?? "")
-                      .text
-                      .size(18)
-                      .color(Colors.brown)
-                      .make(),
-                  Text(product.price ?? "").text.size(19).make(),
-                ],
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(product.name!).text.size(24).make(),
+                    25.heightBox,
+                    Text(product.description!)
+                        .text
+                        .size(18)
+                        .color(Colors.brown)
+                        .make(),
+                    Text("${product.price}").text.size(19).make(),
+                  ],
+                ),
               ),
             ),
           ),

@@ -73,7 +73,7 @@ class ProductCard extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                cartProducts[index].price ?? "default value",
+                                "${cartProducts[index].price}",
                                 style: TextStyle(
                                   fontFamily: primaryFont.fontFamily,
                                   fontSize: 20,

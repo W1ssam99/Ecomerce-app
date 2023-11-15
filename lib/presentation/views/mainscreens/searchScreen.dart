@@ -5,44 +5,34 @@ import '../../../generated/l10n.dart';
 import '../../../models/productmodel.dart';
 import '../../wedgets/mainScreenWedgit/searchScreenWedget.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({Key? key}) : super(key: key);
 
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     List<Products> searchResults = [];
     String currentQuery = '';
-    var _Localaization= S.of(context);
-
+    var _Localaization = S.of(context);
 
     void search(String query) {
-      setState(() {
-        currentQuery = query;
-        searchResults = products
-            .where((product) =>
-            product.name!.toLowerCase().contains(query.toLowerCase()))
-            .toList();
-      });
+      currentQuery = query;
+      searchResults = products
+          .where((product) =>
+          product.name!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     }
 
     void clearSearch() {
-      setState(() {
-        currentQuery = '';
-        searchResults = [];
-      });
+      currentQuery = '';
+      searchResults = [];
     }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-         _Localaization.Search,
-          style: TextStyle(
-              color: Colors.black),
+          _Localaization.Search,
+          style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -54,8 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: TextFilledForSearch(
               onSearchSubmitted: search,
-              onChange: (query) {
-              },
+              onChange: (query) {},
             ),
           ),
           if (currentQuery.isNotEmpty)
@@ -70,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 final product = searchResults[index];
                 return ListTile(
                   title: Text(product.name ?? 'default value'),
-                  subtitle: Text(product.price ?? 'default value'),
+                  subtitle: Text("${product.price}"),
                   // Add more details here...
                 );
               },

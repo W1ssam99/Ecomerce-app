@@ -1,27 +1,62 @@
+import 'dart:convert';
+
+import 'package:clothes_store/services/chekOutToFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clothes_store/config/componets/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../config/componets/Lists.dart';
 import '../../../config/componets/colors.dart';
 import '../../../controlers/cubit_for_navbar/home_screen_cubit/homescreen_cubit.dart';
+import '../../../generated/l10n.dart';
 import '../../wedgets/sharedWedgets/coustomButtom.dart';
 
 
 class OrderScreen extends StatelessWidget {
 
-
   @override
   Widget build(BuildContext context) {
+
+    var _localization = S.of(context);
+
+
+    double total =0;
+    for(int i=0;i<cartProducts.length;i++){
+      total+=cartProducts[i].price!;
+    }
+
+
+    void sendEmail() async {
+      final url = Uri.parse('http://localhost:3000/send-email');
+      final headers = {'Content-Type': 'application/json'};
+      final body = {
+        'to': 'wissamalmsalati@gmail.com',
+        'subject': 'Test Sending email',
+        'text': 'Test',
+      };
+
+      try {
+        final response = await http.post(url, headers: headers, body: jsonEncode(body));
+        if (response.statusCode == 200) {
+          print('Email sent successfully.');
+        } else {
+          print('Failed to send email: ${response.body}');
+        }
+      } catch (e) {
+        print('Error sending email: $e');
+      }
+    }
+
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Order",
+            _localization.Orders,
             style: TextStyle(
-                fontFamily: primaryFont.fontFamily,
                 fontSize: 20,
                 color: Colors.black),
           ),
@@ -33,10 +68,10 @@ class OrderScreen extends StatelessWidget {
           create: (context)=>HomescreenCubit(),
           child: BlocBuilder<HomescreenCubit,HomescreenState>(
             builder: (context, state) {
-              return state is RemoveFromCart ? Center(child: CircularProgressIndicator()) :  Column(
+              return state is RemoveFromCart  ? Center(child: Text("Not Have Any Thing In Cart")) :  Column(
                   children: [
                     Container(
-                    height: MediaQuery.of(context).size.height*0.71,
+                    height: MediaQuery.of(context).size.height*0.64,
                     child: ListView.builder(
                         itemCount: cartProducts.length,
                         itemBuilder: (context, index) {
@@ -59,7 +94,7 @@ class OrderScreen extends StatelessWidget {
                                       image: DecorationImage(
                                         image: AssetImage(
                                             cartProducts[index].image ?? 'default value'),
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.contain,
                                       ),
                                     ),
                                   ),
@@ -81,7 +116,7 @@ class OrderScreen extends StatelessWidget {
                                         height: 10,
                                       ),
                                       Text(
-                                        cartProducts[index].price ?? "default value",
+                                        "${cartProducts[index].price}",
                                         style: TextStyle(
                                             fontFamily: primaryFont.fontFamily,
                                             fontSize: 20,
@@ -108,38 +143,43 @@ class OrderScreen extends StatelessWidget {
                     ),
                   ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-                      child: CostumButtom(text: "CheckOut", onPressed: () async {
-              // Create a reference to the Firebase Firestore database
-              FirebaseFirestore firestore = FirebaseFirestore.instance;
+                      padding: const EdgeInsets.only(left: 20.0, right: 20),
+                      child: Container(
+                        height: 60,
+                        width: double.infinity,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(_localization.TotalPrice,style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black),),
+                            SizedBox(width: 10,),
+                          Text("${total}"  ?? "default value",style: TextStyle(
+                              fontFamily: primaryFont.fontFamily,
+                              fontSize: 20,
+                              color: Colors.black),
+                          ),
+                          ],
 
-              // Get the current user's ID or use any unique identifier for the order
-              String userId = "user123"; // Replace with your actual user ID logic
-
-              // Create a reference to the orders collection in Firebase
-              CollectionReference orders = firestore.collection('orders');
-
-              // Create a new order document with the current timestamp as its ID
-              DocumentReference orderDoc = orders.doc(DateTime.now().toIso8601String());
-
-              // Add the order details to the document
-              await orderDoc.set({
-              'userId': userId,
-              'products': cartProducts.map((product) => {
-              'name': product.name,
-              'price': product.price,
-              // Add other product details as needed
-              }).toList(),
-              'timestamp': FieldValue.serverTimestamp(), // Add a timestamp for when the order was created
-              });
-
-              // Clear the cart or perform any other necessary actions
-              BlocProvider.of<HomescreenCubit>(context).clearCart();
-
-              // Show a success message
-              context.showToast(msg: "CheckOut Done");
-              }, width: MediaQuery.of(context).size.width*0.1, height: MediaQuery.of(context).size.height*0.067, color: primaryColor, textColor: Colors.white, radius: 13, fontSize: 18),
+                        ),
+                      ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+                      child: CostumButtom(
+              width: MediaQuery.of(context).size.width*0.1, height: MediaQuery.of(context).size.height*0.067, color: primaryColor, textColor: Colors.white, radius: 13, fontSize: 18,
+                        text: _localization.Checkout,
+                        onPressed: () async {
+                          sendEmail();
+                          context.read<HomescreenCubit>().removeFromCart(cartProducts[0]);
+                          context.showToast(msg: "Order Done");
+
+
+                        },
+
+                      ),
+                    ),
+
                   ]
               );
             },

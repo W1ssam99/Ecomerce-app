@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "OrderHistory": MessageLookupByLibrary.simpleMessage("تاريخ الطلب"),
         "Orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "Password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+        "ProductDetail": MessageLookupByLibrary.simpleMessage("المنتح"),
         "Products": MessageLookupByLibrary.simpleMessage("المنتجات"),
         "Profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "RecommendedForYou": MessageLookupByLibrary.simpleMessage("موصى به لك"),
@@ -53,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "تسجيل الدخول باستخدام فيسبوك"),
         "Signup": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "Total": MessageLookupByLibrary.simpleMessage("المجموع"),
+        "TotalPrice": MessageLookupByLibrary.simpleMessage("الأجمالي"),
         "Username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "UsernameOrEmail": MessageLookupByLibrary.simpleMessage(
             "اسم المستخدم أو البريد الإلكتروني"),

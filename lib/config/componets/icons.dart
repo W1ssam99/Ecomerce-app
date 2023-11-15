@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 var userIcon = "assets/icons/💚 Icon - L.svg";
 
 var FacebookIco = "assets/icons/Facebook - Logo.svg";
@@ -12,9 +16,9 @@ var SearchIco = "assets/icons/🏀 Menu 2.svg";
 
 var OrderIco = "assets/icons/🏀 Menu 3.svg";
 
-var ProfileIco = "assets/icons/🏀 Menu 4.svg";
+var ProfileIco =    SvgPicture.asset("assets/icons/🏀 Menu 4.svg") ;
 
-var MenuIco = "assets/icons/backIcon.svg";
+var MenuIco =  "assets/icons/backIcon.svg";
 
 var VisaIco = "assets/icons/visa.svg";
 

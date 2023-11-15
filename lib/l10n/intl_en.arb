@@ -29,6 +29,9 @@
   "GettingStarted": "Getting Started",
   "CreateAnAccount": "Create An Account To Continue",
   "AlreadyHaveAnAccount": "Already Have An Account?",
-  "LogOut": "Log Out"
+  "LogOut": "Log Out",
+  "TotalPrice": "Total Price",
+  "ProductDetail": "Product Detail",
+  "Language": "Language"
 }
 

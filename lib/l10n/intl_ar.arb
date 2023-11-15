@@ -29,6 +29,10 @@
   "GettingStarted": "انشاء حساب",
   "CreateAnAccount": "انشاء حساب للمتابعة",
   "AlreadyHaveAnAccount": "هل لديك حساب؟",
-  "LogOut": "تسجيل الخروج"
+  "LogOut": "تسجيل الخروج",
+  "TotalPrice": "الأجمالي",
+  "ProductDetail": "المنتح",
+  "Language": "اللغة"
+
 }
 
