@@ -16,12 +16,12 @@ class Navigation_Bar extends StatelessWidget {
     HomeScreen(),
     SearchScreen(),
     OrderScreen(),
-   const ProfileScreen(),
+    const ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    var _Localaization= S.of(context);
+    var _Localaization = S.of(context);
 
     return BlocProvider(
       create: (context) => NavigationCubit(),
@@ -39,40 +39,35 @@ class Navigation_Bar extends StatelessWidget {
           }
           return Scaffold(
             body: Screens[_currentIndex],
-            bottomNavigationBar: Padding(
-              padding:
-                  const EdgeInsets.only(bottom: 9, top: 5, left: 6, right: 6),
-              child: GNav(
-                  backgroundColor: Colors.white,
-                  gap: 6,
-                  activeColor: Colors.black,
-                  iconSize: 25,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  duration: Duration(milliseconds: 400),
-                  tabBackgroundColor: primaryColor,
-                  color: Colors.black,
-                  tabs: [
-                    GButton(
-                      icon: LineIcons.home,
-                      text:_Localaization.Home,
-                    ),
-                    GButton(
-                      icon: LineIcons.search,
-                      text:_Localaization.Search,
-                    ),
-                    GButton(
-                      icon: LineIcons.shoppingBag,
-                      text: _Localaization.Orders
-                    ),
-                    GButton(
-                      icon: LineIcons.user,
-                      text: _Localaization.Profile
-                    ),
-                  ],
-                  selectedIndex: _currentIndex,
-                  onTabChange: (index) {
-                    context.read<NavigationCubit>().changeIndex(index);
-                  }),
+            bottomNavigationBar: Container(
+              child: BottomNavigationBar(
+                backgroundColor: Colors.white,
+                type: BottomNavigationBarType.fixed,
+                selectedIconTheme: IconThemeData(color: primaryColor),
+                unselectedIconTheme: IconThemeData(color: Colors.grey),
+                iconSize: 25,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(LineIcons.home),
+                    label: _Localaization.Home,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(LineIcons.search),
+                    label: _Localaization.Search,
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(LineIcons.shoppingCart),
+                      label: _Localaization.Orders),
+                  BottomNavigationBarItem(
+                    icon: Icon(LineIcons.user),
+                    label: _Localaization.Profile,
+                  ),
+                ],
+                currentIndex: _currentIndex,
+                onTap: (index) {
+                  context.read<NavigationCubit>().changeIndex(index);
+                },
+              ),
             ),
           );
         },

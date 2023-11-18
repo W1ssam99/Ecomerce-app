@@ -35,7 +35,8 @@ class ProfileCubit extends Cubit<ProfileState> {
 
         if (userData.exists) {
           String username = userData['username'];
-          emit(ProfileLoaded(username));
+          String email = userData['email'];
+          emit(ProfileLoaded(username , email));
         } else {
           emit(ProfileError('User data not found'));
         }

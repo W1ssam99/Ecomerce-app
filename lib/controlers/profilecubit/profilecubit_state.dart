@@ -34,8 +34,9 @@ class ProfileLoading extends ProfileState {}
 
 class ProfileLoaded extends ProfileState {
   final String username;
+  final String email;
 
-  ProfileLoaded(this.username);
+  ProfileLoaded(this.username , this.email);
 
   @override
   List<Object?> get props => [username];

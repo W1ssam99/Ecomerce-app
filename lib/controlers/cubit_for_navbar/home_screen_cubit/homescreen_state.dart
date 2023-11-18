@@ -10,3 +10,4 @@ class FavoriteProducts extends HomescreenState {}
 class AddToCart extends HomescreenState {}
 
 class RemoveFromCart extends HomescreenState {}
+
